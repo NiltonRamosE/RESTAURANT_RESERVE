@@ -11,12 +11,12 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cliente_id');
-            $table->bigInteger('mesa_id');
             $table->date('fecha');
             $table->time('hora');
             $table->enum('estado', ['APROBADO', 'CANCELADO', 'REPROGRAMADO', 'EN CURSO', 'EFECTUADO']);
             $table->timestamps();
+            $table->foreignId('cliente_id')->constrained();
+            $table->foreignId('mesa_id')->constrained();
         });
     }
 
