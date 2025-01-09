@@ -9,16 +9,18 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('mesas', function (Blueprint $table) {
             $table->id();
-            $table->string('correo', length: 100)->unique();
-            $table->string('password');
+            $table->integer('numero');
+            $table->integer('cantidad_asientos');
+            $table->decimal('precio', total: 3,places: 2);
+            $table->enum('estado', ['OCUPADO', 'LIBRE', 'MANTENIMIENTO']);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('mesas');
     }
 };
