@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('apellido_materno', length: 50);
             $table->string('celular', length: 9);
             $table->timestamps();
-            $table->foreignId('usuario_id')->constrained();
+            $table->foreignId('usuario_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
         });
     }
 
