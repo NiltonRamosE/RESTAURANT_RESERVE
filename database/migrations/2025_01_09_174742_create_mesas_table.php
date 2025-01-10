@@ -14,7 +14,7 @@ return new class extends Migration
             $table->integer('numero');
             $table->integer('cantidad_asientos');
             $table->decimal('precio', total: 7, places: 2);
-            $table->enum('estado', ['OCUPADO', 'LIBRE', 'MANTENIMIENTO']);
+            $table->enum('estado', ['OCUPADO', 'LIBRE', 'MANTENIMIENTO'])->default('LIBRE');
             $table->timestamps();
         });
     }
