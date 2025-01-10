@@ -14,14 +14,12 @@ export default {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
-            extend: {
-                colors: {
-                    sevensoup: {
-                        green: "#25d367",
-                        dark: "#0d181c",
-                        light: "#f6f6f6",
-                        yellow: "#f6e944",
-                    },
+            colors: {
+                sevensoup: {
+                    green: "#25d367",
+                    dark: "#0d181c",
+                    light: "#f6f6f6",
+                    yellow: "#f6e944",
                 },
             },
         },
