@@ -13,10 +13,10 @@ export default {
         extend: {
             colors: {
                 sevensoup: {
-                    green: "#25d367",
+                    green: "#addaad",
                     dark: "#0d181c",
                     light: "#f6f6f6",
-                    yellow: "#f6e944",
+                    red: "#ea4f5b",
                 },
             },
         },
