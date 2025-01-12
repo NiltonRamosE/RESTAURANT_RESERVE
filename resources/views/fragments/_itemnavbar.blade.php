@@ -1,12 +1,12 @@
 <li>
-    <a href="#" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Menú</a>
+    <a href="{{route('pages.menu')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Menú</a>
 </li>
 <li>
-    <a href="#" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Reservas</a>
+    <a href="{{route('pages.reservas')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Reservas</a>
 </li>
 <li>
-    <a href="#" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Nosotros</a>
+    <a href="{{route('pages.nosotros')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Nosotros</a>
 </li>
 <li>
-    <a href="#" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Iniciar Sesión</a>
+    <a href="{{route('pages.login')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Iniciar Sesión</a>
 </li>

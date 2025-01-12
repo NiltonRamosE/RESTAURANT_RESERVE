@@ -1,5 +1,5 @@
 <nav class="flex items-center justify-between w-full px-5 sm:px-20 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 bg-sevensoup-light shadow-md">
-    <a href="#" class="hidden sm:block flex items-center">
+    <a href="{{route('pages.index')}}" class="hidden sm:block flex items-center">
         <img 
             src="{{ secure_asset('logo_seven_soup.png') }}" 
             alt="Logo 7 sopas" 
@@ -20,7 +20,7 @@
 
         <ul class="absolute top-full left-0 w-screen flex flex-col items-center space-y-4 bg-sevensoup-light shadow-lg p-6 transition-all transform origin-top scale-y-0 peer-checked:scale-y-100 peer-checked:opacity-100 opacity-0 sm:hidden">
             <li>
-                <a href="#" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Inicio</a>
+                <a href="{{route('pages.index')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Inicio</a>
             </li>
             @include('fragments._itemnavbar')
         </ul>
