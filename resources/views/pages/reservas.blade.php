@@ -3,7 +3,7 @@
 @section('title', 'Reservas')
 
 @section('content')
-    <div class="min-h-screen py-12 bg-sevensoup-light">
+    <div class="min-h-screen py-12">
         <div class="max-w-7xl mx-auto px-6">
             <h1 class="text-3xl font-semibold text-center text-sevensoup-dark mb-8">Reservar Mesa</h1>
 
