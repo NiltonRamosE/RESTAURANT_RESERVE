@@ -6,7 +6,9 @@
     <div class="flex justify-center items-center min-h-screen">
         <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-sm space-y-6">
             <h2 class="text-3xl font-semibold text-center text-gray-800">Iniciar Sesión</h2>
-
+            
+            @include('fragments._success')
+            
             <form action="" method="POST">
                 @csrf
 
