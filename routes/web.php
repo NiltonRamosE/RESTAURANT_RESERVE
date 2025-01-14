@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,6 @@ Route::get('/login', function () {
     return view('pages/login');
 })->name('pages.login');
 
-Route::get('/register', function () {
-    return view('pages/register');
-})->name('pages.register');
+Route::resource('register', RegisterController::class)->only([
+    'create', 'store'
+]);

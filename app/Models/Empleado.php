@@ -11,5 +11,6 @@ class Empleado extends Model
         'apellido_paterno',
         'apellido_materno',
         'celular',
+        'usuario_id'
     ];
 }

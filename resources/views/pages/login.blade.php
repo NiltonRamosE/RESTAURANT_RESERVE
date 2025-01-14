@@ -26,7 +26,7 @@
             </form>
 
             <div class="mt-4 text-center">
-                <a href="{{ route('pages.register') }}" class="text-sm text-sevensoup-red font-bold">¿No tienes cuenta? ¡Registrate!</a>
+                <a href="{{ route('register.create') }}" class="text-sm text-sevensoup-red font-bold">¿No tienes cuenta? ¡Registrate!</a>
             </div>
         </div>
     </div>

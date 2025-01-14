@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nombre', length: 50);
             $table->string('apellido_paterno', length: 50);
             $table->string('apellido_materno', length: 50);
-            $table->string('celular', length: 9);
+            $table->string('celular', length: 9)->unique();
             $table->timestamps();
             $table->foreignId('usuario_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
         });
