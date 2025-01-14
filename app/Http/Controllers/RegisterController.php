@@ -32,7 +32,8 @@ class RegisterController extends Controller
                 'celular' => $request->get('celular'),
                 'usuario_id' => $user->id,
             ]);
-            return to_route('pages.login');
+
+            return to_route('pages.login')->with('status', 'Registro completado correctamente');
         }
         return to_route('register.create');
     }
