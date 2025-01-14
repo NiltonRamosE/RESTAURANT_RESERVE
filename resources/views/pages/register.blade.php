@@ -48,7 +48,7 @@
             </form>
 
             <div class="mt-4 text-center">
-                <a href="{{ route('pages.login') }}" class="text-sm text-sevensoup-red font-bold">¿Ya tienes una cuenta? Inicia sesión</a>
+                <a href="{{ route('login.index') }}" class="text-sm text-sevensoup-red font-bold">¿Ya tienes una cuenta? Inicia sesión</a>
             </div>
         </div>
     </div>

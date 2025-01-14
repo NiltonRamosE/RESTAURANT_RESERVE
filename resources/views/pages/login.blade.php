@@ -8,8 +8,9 @@
             <h2 class="text-3xl font-semibold text-center text-gray-800">Iniciar Sesión</h2>
             
             @include('fragments._success')
+            @include('fragments._error')
             
-            <form action="" method="POST">
+            <form action="{{ route('login.auth') }}" method="POST">
                 @csrf
 
                 <div class="mb-4">

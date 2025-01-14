@@ -8,5 +8,5 @@
     <a href="{{route('pages.nosotros')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Nosotros</a>
 </li>
 <li>
-    <a href="{{route('pages.login')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Iniciar Sesión</a>
+    <a href="{{route('login.index')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Iniciar Sesión</a>
 </li>

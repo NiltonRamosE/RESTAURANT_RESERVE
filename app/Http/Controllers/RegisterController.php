@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\register\StoreRequest;
-use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Cliente;
 
@@ -18,23 +17,23 @@ class RegisterController extends Controller
     {
         $validated = $request->validated();
 
-        if (isset($validated)) {
-            
-            $user =  Usuario::create([
-                'correo' => $request->get('correo'),
-                'password' => $request->get('password')
-            ]);
+        $user =  Usuario::create([
+            'correo' => $request->get('correo'),
+            'password' => $request->get('password')
+        ]);
 
-            Cliente::create([
-                'nombre' => $request->get('nombre'),
-                'apellido_paterno' => $request->get('apellido_paterno'),
-                'apellido_materno' => $request->get('apellido_materno'),
-                'celular' => $request->get('celular'),
-                'usuario_id' => $user->id,
-            ]);
+        $cliente = Cliente::create([
+            'nombre' => $validated['nombre'],
+            'apellido_paterno' => $validated['apellido_paterno'],
+            'apellido_materno' => $validated['apellido_materno'],
+            'celular' => $validated['celular'],
+            'usuario_id' => $user->id,
+        ]);
 
-            return to_route('pages.login')->with('status', 'Registro completado correctamente');
+        if (isset($cliente)) {
+            return to_route('login.index')->with('status', 'Registro completado correctamente');
         }
+
         return to_route('register.create');
     }
 }
