@@ -14,4 +14,15 @@ class Cliente extends Model
         'usuario_id'
     ];
 
+    protected $hidden = [
+        'id',
+        'usuario_id',
+        'created_at',
+        'updated_at'
+    ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
+    }
 }

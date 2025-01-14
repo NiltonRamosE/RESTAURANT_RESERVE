@@ -10,7 +10,7 @@
             @include('fragments._success')
             @include('fragments._error')
             
-            <form action="{{ route('login.auth') }}" method="POST">
+            <form action="{{ route('auth.login') }}" method="POST">
                 @csrf
 
                 <div class="mb-4">

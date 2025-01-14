@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\login\LoginRequest;
-use App\Models\Usuario;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
@@ -29,19 +27,38 @@ class LoginController extends Controller
 
         RateLimiter::hit($correo);
 
-        $user = Usuario::where('correo', $correo)->first();
+        if (auth('usuarios')->attempt(['correo' => $correo, 'password' => $password])) {
 
-        if ($this->checkPassword($password, $user->password)) {
             RateLimiter::clear($correo);
-            return to_route('pages.reservas');
+
+            $userAuth = auth('usuarios')->user();
+
+            $client = $userAuth->cliente;
+            $employee = $userAuth->empleado;
+
+            $userSession = [
+                'correo' => $userAuth->correo,
+                'user' => $client ?? $employee
+            ];
+
+            session(['userSession' => $userSession]);
+
+            if (isset($client)) {
+                return to_route('pages.reservas');
+            } elseif(isset($employee)){
+                return to_route('pages.index');
+            }
         }
         return back()->withErrors(['error' => 'Credenciales incorrectas.']);
     }
 
-    public function checkPassword($passwordRequest, $passwordDB){
-        if(Hash::check($passwordRequest, $passwordDB)){
-            return true;
-        }
-        return false;
+    public function logout()
+    {
+        auth('usuarios')->logout();
+
+        session()->forget('userSession');
+
+        return to_route('auth.index');
     }
+
 }

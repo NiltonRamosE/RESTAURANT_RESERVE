@@ -20,9 +20,10 @@ Route::get('/nosotros', function () {
     return view('pages/nosotros');
 })->name('pages.nosotros');
 
-Route::prefix('login')->controller(LoginController::class)->group(function () {
-    Route::get('/', 'index')->name('login.index');
-    Route::post('/auth', 'login')->name('login.auth');
+Route::prefix('auth')->controller(LoginController::class)->group(function () {
+    Route::get('/', 'index')->name('auth.index');
+    Route::post('/login', 'login')->name('auth.login');
+    Route::post('/logout', 'logout')->name('auth.logout');
 });
 
 Route::resource('register', RegisterController::class)->only([
