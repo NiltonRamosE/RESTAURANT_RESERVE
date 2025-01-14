@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\login\LoginRequest;
+use App\Http\Requests\auth\AuthRequest;
 use Illuminate\Support\Facades\RateLimiter;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
 
     public function index()
@@ -13,8 +13,7 @@ class LoginController extends Controller
         return view('pages/login');
     }
 
-
-    public function login(LoginRequest $request)
+    public function login(AuthRequest $request)
     {
         $validated = $request->validated();
 
