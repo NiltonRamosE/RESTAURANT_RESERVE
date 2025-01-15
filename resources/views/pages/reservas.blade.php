@@ -21,45 +21,25 @@
             </div>
 
             <div id="first-floor" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                @for ($i = 1; $i <= 14; $i++)
-                    <div class="relative">
-                        <button class="w-full h-24 bg-sevensoup-green text-sevensoup-dark font-semibold rounded-lg shadow-md hover:bg-sevensoup-dark hover:text-sevensoup-light focus:outline-none focus:ring-2 focus:ring-sevensoup-green {{ $i <= 7 ? 'cursor-pointer' : 'cursor-not-allowed opacity-50' }}" 
-                            {{ $i <= 7 ? 'onclick="alert(\'Reserva para la mesa ' . $i . ' en el primer piso\')"' : 'disabled' }}>
-                            <div class="flex items-center justify-center space-x-2">
-                                <span class="material-symbols-outlined">
-                                    table_bar
-                                </span>
-                                <span>Mesa {{ $i }}</span>
-                            </div>
-                        </button>
-                        @if ($i <= 7)
-                            <span class="absolute top-2 right-2 text-xs text-sevensoup-light bg-sevensoup-dark px-2 py-1 rounded-full">Disponible</span>
-                        @else
-                            <span class="absolute top-2 right-2 text-xs text-sevensoup-light bg-sevensoup-red px-2 py-1 rounded-full">No disponible</span>
-                        @endif
-                    </div>
-                @endfor
+                
+                @forelse ($mesas as $m)
+                    @if ($m->piso == 1)
+                        @include('fragments._mesacard')
+                    @endif
+                @empty
+                    @include('fragments._disponibilidad')
+                @endforelse
+                
             </div>
 
             <div id="second-floor" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 hidden">
-                @for ($i = 15; $i <= 28; $i++)
-                    <div class="relative">
-                        <button class="w-full h-24 bg-sevensoup-green text-sevensoup-dark font-semibold rounded-lg shadow-md hover:bg-sevensoup-dark hover:text-sevensoup-light focus:outline-none focus:ring-2 focus:ring-sevensoup-green {{ $i <= 21 ? 'cursor-pointer' : 'cursor-not-allowed opacity-50' }}" 
-                            {{ $i <= 21 ? 'onclick="alert(\'Reserva para la mesa ' . $i . ' en el segundo piso\')"' : 'disabled' }}>
-                            <div class="flex items-center justify-center space-x-2">
-                                <span class="material-symbols-outlined">
-                                    table_bar
-                                </span>
-                                <span>Mesa {{ $i }}</span>
-                            </div>
-                        </button>
-                        @if ($i <= 21)
-                            <span class="absolute top-2 right-2 text-xs text-sevensoup-light bg-sevensoup-dark px-2 py-1 rounded-full">Disponible</span>
-                        @else
-                            <span class="absolute top-2 right-2 text-xs text-sevensoup-light bg-sevensoup-red px-2 py-1 rounded-full">No disponible</span>
-                        @endif
-                    </div>
-                @endfor
+                @forelse ($mesas as $m)
+                    @if ($m->piso == 2)
+                        @include('fragments._mesacard')
+                    @endif
+                @empty
+                    @include('fragments._disponibilidad')
+                @endforelse
             </div>
 
         </div>

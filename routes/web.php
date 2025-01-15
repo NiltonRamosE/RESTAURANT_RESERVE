@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,10 +12,6 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('pages/menu');
 })->name('pages.menu');
-
-Route::get('/reservas', function () {
-    return view('pages/reservas');
-})->name('pages.reservas');
 
 Route::get('/nosotros', function () {
     return view('pages/nosotros');
@@ -29,3 +26,5 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
 Route::resource('register', RegisterController::class)->only([
     'create', 'store'
 ]);
+
+Route::resource('reserva', ReservaController::class);

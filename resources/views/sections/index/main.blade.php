@@ -5,7 +5,7 @@
         <p class="mt-4 text-2xl max-w-3xl leading-relaxed">
             La tradición hecha sabor. Disfruta de nuestras sopas y platos tradicionales peruanos en un ambiente acogedor.
         </p>
-        <a href="{{route('pages.reservas')}}" class="mt-8 px-8 py-4 bg-sevensoup-green text-white font-semibold rounded-full shadow-lg hover:bg-sevensoup-red transition">
+        <a href="{{route('reserva.index')}}" class="mt-8 px-8 py-4 bg-sevensoup-green text-white font-semibold rounded-full shadow-lg hover:bg-sevensoup-red transition">
             Reserva Ahora
         </a>
     </div>
