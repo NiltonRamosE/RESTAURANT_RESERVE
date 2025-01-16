@@ -20,11 +20,11 @@ class AuthController extends Controller
         $correo = $validated['correo'];
         $password = $validated['password'];
         
-        if (RateLimiter::tooManyAttempts($correo, 3)) {
+        $key = $correo . '|' . $request->ip();
+        if (RateLimiter::tooManyAttempts($key, 3)) {
             return back()->withErrors(['error' => 'Demasiados intentos. Inténtalo más tarde.']);
         }
-
-        RateLimiter::hit($correo);
+        RateLimiter::hit($key);
 
         if (auth('usuarios')->attempt(['correo' => $correo, 'password' => $password])) {
 

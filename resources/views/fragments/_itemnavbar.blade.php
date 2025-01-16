@@ -8,7 +8,7 @@
     <a href="{{route('pages.nosotros')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Nosotros</a>
 </li>
 
-@if (session('userSession'))
+@auth('usuarios')
 <li>
     <form action="{{route('auth.logout')}}" method="POST">
         @csrf
@@ -16,8 +16,10 @@
     </form>
     
 </li>
-@else
+@endauth
+
+@guest('usuarios')
 <li>
     <a href="{{route('auth.index')}}" class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">Iniciar Sesión</a>
 </li>
-@endif
+@endguest
