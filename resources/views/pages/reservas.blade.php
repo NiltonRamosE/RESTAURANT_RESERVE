@@ -19,6 +19,9 @@
                 </button>
             </div>
 
+            @include('fragments._success')
+            @include('fragments._error')
+
             @include('sections.reserva.reserva-modal')
 
             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8">

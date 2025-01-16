@@ -10,5 +10,12 @@ class Reserva extends Model
         'fecha',
         'hora',
         'estado',
+        'cliente_id',
+        'mesa_id',
+    ];
+
+    protected $hidden = [
+        'cliente_id',
+        'mesa_id',
     ];
 }
