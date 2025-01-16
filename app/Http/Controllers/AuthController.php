@@ -43,7 +43,7 @@ class AuthController extends Controller
             session(['userSession' => $userSession]);
 
             if (isset($client)) {
-                return to_route('pages.reservas');
+                return to_route('reserva.index');
             } elseif(isset($employee)){
                 return to_route('pages.index');
             }

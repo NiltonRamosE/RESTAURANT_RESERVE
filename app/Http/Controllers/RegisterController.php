@@ -31,7 +31,7 @@ class RegisterController extends Controller
         ]);
 
         if (isset($cliente)) {
-            return to_route('login.index')->with('status', 'Registro completado correctamente');
+            return to_route('auth.index')->with('status', 'Registro completado correctamente');
         }
 
         return to_route('register.create');

@@ -38,7 +38,11 @@
 
             <div class="flex justify-end space-x-4">
                 <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-700" onclick="closeModal()">Cancelar</button>
+                @if (session('userSession'))
                 <button type="submit" class="px-4 py-2 bg-sevensoup-green text-white rounded-lg hover:bg-sevensoup-dark">Registrar</button>
+                @else
+                <a href="{{ route('auth.index') }}" class="px-4 py-2 bg-sevensoup-green text-white rounded-lg hover:bg-sevensoup-dark">Iniciar Sesión</a>
+                @endif
             </div>
         </form>
     </div>
