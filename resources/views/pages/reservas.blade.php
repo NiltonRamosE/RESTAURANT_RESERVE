@@ -11,6 +11,15 @@
                 <img id="floor-croquis" alt="Croquis del lugar" class="w-full max-w-md rounded-lg shadow-md">
             </div>
 
+            <div class="flex justify-center mb-8">
+                <button 
+                    class="px-6 py-3 text-lg font-medium text-sevensoup-light bg-sevensoup-dark border-2 border-sevensoup-dark rounded-lg hover:bg-sevensoup-green hover:text-sevensoup-dark transition duration-300 ease-in-out"
+                    onclick="openModal()">
+                    Registrar Reserva
+                </button>
+            </div>
+            
+            @include('sections.reserva.reserva-modal')
             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
                 <button id="first-floor-btn" class="px-6 py-3 text-lg font-medium text-sevensoup-light bg-sevensoup-green border-2 border-sevensoup-green rounded-lg hover:bg-sevensoup-dark hover:text-sevensoup-light transition duration-300 ease-in-out" onclick="showFloor('first')">
                     Primer Piso
@@ -70,6 +79,14 @@
                 document.getElementById('first-floor-btn').classList.remove('bg-sevensoup-dark', 'text-sevensoup-light');
                 croquis.src = "{{ secure_asset('example2.jpg') }}";
             }
+        }
+
+        function openModal() {
+            document.getElementById('reservation-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('reservation-modal').classList.add('hidden');
         }
     </script>
 @endsection
