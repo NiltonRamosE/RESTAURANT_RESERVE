@@ -18,4 +18,14 @@ class Reserva extends Model
         'cliente_id',
         'mesa_id',
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function mesa()
+    {
+        return $this->belongsTo(Mesa::class);
+    }
 }
