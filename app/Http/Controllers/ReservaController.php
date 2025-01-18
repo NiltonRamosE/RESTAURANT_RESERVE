@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\reserva\StoreReservaRequest;
+use App\Mail\ReserveMailConfirmation;
 use App\Models\Mesa;
 use App\Models\Reserva;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
 {
@@ -35,11 +36,11 @@ class ReservaController extends Controller
 
         $reservaCreated = Reserva::create($validated);
 
-        $mesaFound = Mesa::find($validated['mesa_id']);
+        $informationOfClient = $userInSession['user'];
 
-        $mesaFound->update([
-            'estado' => 'OCUPADO',
-        ]);
+        $mesaFound = $this->updateStateMesa($validated);
+
+        $this->sendReserveMailConfirmation($userInSession['correo'], $informationOfClient, $reservaCreated, $mesaFound);
 
         if (isset($reservaCreated)) {
             return to_route('reserva.index')->with('status', 'Reserva completada correctamente');
@@ -66,5 +67,21 @@ class ReservaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function updateStateMesa($validated)
+    {
+        $mesaFound = Mesa::find($validated['mesa_id']);
+
+        $mesaFound->update([
+            'estado' => 'OCUPADO',
+        ]);
+
+        return $mesaFound;
+    }
+
+    private function sendReserveMailConfirmation($email_destinario, $informationOfClient, $reservaCreated, $mesaFound)
+    {
+        Mail::to($email_destinario)->send(new ReserveMailConfirmation($informationOfClient, $reservaCreated, $mesaFound));
     }
 }
