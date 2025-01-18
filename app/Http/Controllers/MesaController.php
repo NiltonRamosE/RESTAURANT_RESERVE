@@ -45,12 +45,12 @@ class MesaController extends Controller
 
     public function getPrecio(string $id)
     {
-        $mesa = Mesa::find($id);
+        $mesaFound = Mesa::find($id);
 
-        if ($mesa) {
+        if ($mesaFound) {
             return response()->json([
                 'success' => true,
-                'precio' => $mesa->precio
+                'precio' => $mesaFound->precio
             ]);
         }
 

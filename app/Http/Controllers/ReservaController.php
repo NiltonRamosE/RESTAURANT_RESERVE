@@ -26,22 +26,22 @@ class ReservaController extends Controller
     {
         $validated = $request->validated();
 
-        $user = session('userSession');
-        if (!$user || !isset($user['user']['id'])) {
+        $userInSession = session('userIsAuthenticated');
+        if (!$userInSession || !isset($userInSession['user']['id'])) {
             return redirect()->back()->withErrors(['error' => 'El usuario no tiene un cliente asociado.']);
         }
 
-        $validated['cliente_id'] = $user['user']['id'];
+        $validated['cliente_id'] = $userInSession['user']['id'];
 
-        $reserva = Reserva::create($validated);
+        $reservaCreated = Reserva::create($validated);
 
-        $mesa = Mesa::find($validated['mesa_id']);
+        $mesaFound = Mesa::find($validated['mesa_id']);
 
-        $mesa->update([
+        $mesaFound->update([
             'estado' => 'OCUPADO',
         ]);
 
-        if (isset($reserva)) {
+        if (isset($reservaCreated)) {
             return to_route('reserva.index')->with('status', 'Reserva completada correctamente');
         }
 

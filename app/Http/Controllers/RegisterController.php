@@ -17,20 +17,20 @@ class RegisterController extends Controller
     {
         $validated = $request->validated();
 
-        $user =  Usuario::create([
+        $userCreated =  Usuario::create([
             'correo' => $request->get('correo'),
             'password' => $request->get('password')
         ]);
 
-        $cliente = Cliente::create([
+        $clienteCreated = Cliente::create([
             'nombre' => $validated['nombre'],
             'apellido_paterno' => $validated['apellido_paterno'],
             'apellido_materno' => $validated['apellido_materno'],
             'celular' => $validated['celular'],
-            'usuario_id' => $user->id,
+            'usuario_id' => $userCreated->id,
         ]);
 
-        if (isset($cliente)) {
+        if (isset($clienteCreated)) {
             return to_route('auth.index')->with('status', 'Registro completado correctamente');
         }
 

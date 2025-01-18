@@ -20,31 +20,31 @@ class AuthController extends Controller
         $correo = $validated['correo'];
         $password = $validated['password'];
         
-        $key = $correo . '|' . $request->ip();
-        if (RateLimiter::tooManyAttempts($key, 3)) {
+        $verifyAttempForUser = $correo . '|' . $request->ip();
+        if (RateLimiter::tooManyAttempts($verifyAttempForUser, 3)) {
             return back()->withErrors(['error' => 'Demasiados intentos. Inténtalo más tarde.']);
         }
-        RateLimiter::hit($key);
+        RateLimiter::hit($verifyAttempForUser);
 
         if (auth('usuarios')->attempt(['correo' => $correo, 'password' => $password])) {
 
             RateLimiter::clear($correo);
 
-            $userAuth = auth('usuarios')->user();
+            $userAuthenticated = auth('usuarios')->user();
 
-            $client = $userAuth->cliente;
-            $employee = $userAuth->empleado;
+            $clientAuthenticated = $userAuthenticated->cliente;
+            $employeeAuthenticated = $userAuthenticated->empleado;
 
-            $userSession = [
-                'correo' => $userAuth->correo,
-                'user' => $client ?? $employee
+            $userInSession = [
+                'correo' => $userAuthenticated->correo,
+                'user' => $clientAuthenticated ?? $employeeAuthenticated
             ];
 
-            session(['userSession' => $userSession]);
+            session(['userIsAuthenticated' => $userInSession]);
 
-            if (isset($client)) {
+            if (isset($clientAuthenticated)) {
                 return to_route('reserva.index');
-            } elseif(isset($employee)){
+            } elseif(isset($employeeAuthenticated)){
                 return to_route('pages.index');
             }
         }
@@ -55,7 +55,7 @@ class AuthController extends Controller
     {
         auth('usuarios')->logout();
 
-        session()->forget('userSession');
+        session()->forget('userIsAuthenticated');
 
         return to_route('auth.index');
     }
