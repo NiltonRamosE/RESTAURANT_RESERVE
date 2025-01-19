@@ -16,7 +16,7 @@
     content="viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     name="viewport"
   />
-  <link href="favicon.ico" rel="icon" />
+  <link href="{{ secure_asset('favicon.ico')}}" rel="icon" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=table_bar" />
   @vite('resources/css/app.css')
 </head>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservaController;
@@ -28,6 +29,10 @@ Route::middleware([CheckAuth::class])->prefix('auth')->controller(AuthController
 Route::prefix('mesas')->controller(MesaController::class)->group(function () {
     Route::get('/{id}', 'getPrecio');
     Route::get('/reservas-actuales/{id}', 'reservasActuales')->name('mesas.reservasActuales');
+});
+
+Route::prefix('calendario')->controller(CalendarioController::class)->group(function () {
+    Route::get('/reservations/{fecha?}', 'index')->name('calendario.index');
 });
 
 Route::middleware([CheckAuth::class])->resource('register', RegisterController::class)->only([
