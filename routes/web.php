@@ -27,6 +27,7 @@ Route::middleware([CheckAuth::class])->prefix('auth')->controller(AuthController
 
 Route::prefix('mesas')->controller(MesaController::class)->group(function () {
     Route::get('/{id}', 'getPrecio');
+    Route::get('/reservas-actuales/{id}', 'reservasActuales')->name('mesas.reservasActuales');
 });
 
 Route::middleware([CheckAuth::class])->resource('register', RegisterController::class)->only([

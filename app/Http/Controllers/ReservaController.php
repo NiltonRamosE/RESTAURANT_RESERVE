@@ -15,7 +15,7 @@ class ReservaController extends Controller
     {
         $mesas = Mesa::all();
 
-        return view('pages/reservas', compact('mesas'));
+        return view('pages.reservas', compact('mesas'));
     }
 
     public function create()

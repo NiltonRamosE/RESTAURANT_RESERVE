@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mesa;
+use App\Models\Reserva;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MesaController extends Controller
@@ -43,6 +45,23 @@ class MesaController extends Controller
         //
     }
 
+    public function reservasActuales(string $id)
+    {
+        $dateNow = Carbon::now()->toDateString();
+
+        $reservationsDateNow = Reserva::with('cliente:id,nombre')
+            ->where('mesa_id', $id)
+            ->where('fecha', $dateNow)
+            ->whereIn('estado', ['APROBADO', 'REPROGRAMADO'])
+            ->get(['hora', 'duracion', 'estado', 'cliente_id']);
+
+        foreach ($reservationsDateNow as $reservation) {
+            $reservation->duracion_horas = $this->calculateDuration($reservation->duracion);
+        }
+        
+        return view('pages.mesa-reservations', compact('reservationsDateNow'));
+    }
+
     public function getPrecio(string $id)
     {
         $mesaFound = Mesa::find($id);
@@ -59,4 +78,15 @@ class MesaController extends Controller
             'message' => 'Mesa no encontrada'
         ], 404);
     }
+
+    private function calculateDuration(string $tipo): int
+    {
+        return match ($tipo) {
+            'RAPIDO' => 1,
+            'PROMEDIO' => 2,
+            'EXTENDIDO' => 3,
+            default => 0,
+        };
+    }
+
 }

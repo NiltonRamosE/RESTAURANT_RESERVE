@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     public function create()
     {
-        return view('pages/register');
+        return view('pages.register');
     }
 
     public function store(StoreRequest $request)
