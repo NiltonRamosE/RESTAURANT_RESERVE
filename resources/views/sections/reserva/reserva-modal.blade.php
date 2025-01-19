@@ -17,20 +17,38 @@
             
             <div class="mb-4">
                 <label for="fecha" class="block text-sm font-medium text-sevensoup-dark mb-2">Fecha</label>
-                <input type="date" id="fecha" name="fecha" class="w-full border rounded-lg px-3 py-2 text-sevensoup-dark focus:outline-none focus:ring-2 focus:ring-sevensoup-green" required>
+                <input 
+                    type="date" 
+                    name="fecha" 
+                    class="w-full border rounded-lg px-3 py-2 text-sevensoup-dark focus:outline-none focus:ring-2 focus:ring-sevensoup-green" 
+                    required
+                >
             </div>
 
             <div class="mb-4">
                 <label for="hora" class="block text-sm font-medium text-sevensoup-dark mb-2">Hora</label>
-                <input type="time" id="hora" name="hora" class="w-full border rounded-lg px-3 py-2 text-sevensoup-dark focus:outline-none focus:ring-2 focus:ring-sevensoup-green" required>
-            </div>
+                <select 
+                    id="hora" 
+                    name="hora" 
+                    class="w-full border rounded-lg px-3 py-2 text-sevensoup-dark focus:outline-none focus:ring-2 focus:ring-sevensoup-green" 
+                    required
+                >
+                    <option value="">Selecciona una hora</option>
+                    @for ($hora = 8; $hora <= 22; $hora++)
+                        @foreach ([0, 30] as $minuto)
+                            <option value="{{ sprintf('%02d:%02d', $hora, $minuto) }}">
+                                {{ sprintf('%02d:%02d', $hora, $minuto) }}
+                            </option>
+                        @endforeach
+                    @endfor
+                </select>
+            </div>            
             
             <div class="mb-4">
                 <label for="precio" class="block text-sm font-medium text-sevensoup-dark mb-2">Precio</label>
                 <input 
                     type="text" 
                     id="precio" 
-                    name="precio" 
                     class="w-full border rounded-lg px-3 py-2 text-sevensoup-dark focus:outline-none focus:ring-2 focus:ring-sevensoup-green" 
                     disabled
                 >
