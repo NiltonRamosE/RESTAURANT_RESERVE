@@ -14,6 +14,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->enum('estado', ['APROBADO', 'CANCELADO', 'REPROGRAMADO', 'EN CURSO', 'EFECTUADO'])->default('APROBADO');
+            $table->enum('duracion', ['RAPIDO', 'PROMEDIO', 'EXTENDIDO']);
             $table->timestamps();
             $table->foreignId('cliente_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->foreignId('mesa_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();

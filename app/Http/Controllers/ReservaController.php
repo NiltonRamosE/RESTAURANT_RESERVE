@@ -82,6 +82,6 @@ class ReservaController extends Controller
 
     private function sendReserveMailConfirmation($email_destinario, $informationOfClient, $reservaCreated, $mesaFound)
     {
-        Mail::to($email_destinario)->send(new ReserveMailConfirmation($informationOfClient, $reservaCreated, $mesaFound));
+        //Mail::to($email_destinario)->send(new ReserveMailConfirmation($informationOfClient, $reservaCreated, $mesaFound));
     }
 }

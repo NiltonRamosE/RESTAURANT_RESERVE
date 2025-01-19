@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\reserva;
 
+use App\Rules\ReservationOverlapRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreReservaRequest extends FormRequest
@@ -15,8 +16,9 @@ class StoreReservaRequest extends FormRequest
     {
         return [
             'fecha' => 'required',
-            'hora' => 'required',
-            'mesa_id' => 'required|exists:mesas,id'
+            'hora' => ['required', new ReservationOverlapRule()],
+            'mesa_id' => 'required|exists:mesas,id',
+            'duracion' => 'required',
         ];
     }
 }

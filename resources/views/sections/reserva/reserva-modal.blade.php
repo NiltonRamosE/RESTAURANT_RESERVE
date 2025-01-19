@@ -42,10 +42,24 @@
                         @endforeach
                     @endfor
                 </select>
-            </div>            
-            
+            </div>
+
             <div class="mb-4">
-                <label for="precio" class="block text-sm font-medium text-sevensoup-dark mb-2">Precio</label>
+                <label for="duracion" class="block text-sm font-medium text-sevensoup-dark mb-2">Duración de la reserva</label>
+                <select 
+                    name="duracion" 
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sevensoup-dark bg-white focus:outline-none focus:ring-2 focus:ring-sevensoup-green focus:border-sevensoup-green"
+                    required
+                    >
+                    <option value="">Selecciona la duración</option>
+                    <option value="RAPIDO">Rápido: 1 hora</option>
+                    <option value="PROMEDIO">Promedio: 2 horas</option>
+                    <option value="EXTENDIDO">Extendido: 3 horas</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="precio" class="block text-sm font-medium text-sevensoup-dark mb-2">Precio (Por hora)</label>
                 <input 
                     type="text" 
                     id="precio" 
