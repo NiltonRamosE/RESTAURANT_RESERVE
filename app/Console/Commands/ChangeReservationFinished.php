@@ -27,7 +27,7 @@ class ChangeReservationFinished extends Command
                 $reserva->estado = 'EFECTUADO';
                 $reserva->save();
 
-                $mesa = Mesa::where('id', $reserva->mesa_id)->lockForUpdate()->first();
+                $mesa = $reserva->mesa;
                 $mesa->estado = 'LIBRE';
                 $mesa->save();
 
