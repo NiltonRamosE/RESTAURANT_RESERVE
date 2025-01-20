@@ -38,7 +38,7 @@ class ReservaController extends Controller
 
         $informationOfClient = $userInSession['user'];
 
-        $mesaFound = $this->updateStateMesa($validated);
+        $mesaFound = Mesa::find($validated['mesa_id']);
 
         $this->sendReserveMailConfirmation($userInSession['correo'], $informationOfClient, $reservaCreated, $mesaFound);
 
@@ -67,17 +67,6 @@ class ReservaController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    private function updateStateMesa($validated)
-    {
-        $mesaFound = Mesa::find($validated['mesa_id']);
-
-        $mesaFound->update([
-            'estado' => 'OCUPADO',
-        ]);
-
-        return $mesaFound;
     }
 
     private function sendReserveMailConfirmation($email_destinario, $informationOfClient, $reservaCreated, $mesaFound)
