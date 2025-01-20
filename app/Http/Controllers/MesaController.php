@@ -56,7 +56,7 @@ class MesaController extends Controller
             ->get(['hora', 'duracion', 'estado', 'cliente_id']);
 
         foreach ($reservationsDateNow as $reservation) {
-            $reservation->duracion_horas = $this->calculateDuration($reservation->duracion);
+            $reservation->duracion_horas = $reservation->calculateDuration($reservation->duracion);
         }
         
         return view('pages.mesa-reservations', compact('reservationsDateNow'));
@@ -78,15 +78,4 @@ class MesaController extends Controller
             'message' => 'Mesa no encontrada'
         ], 404);
     }
-
-    private function calculateDuration(string $tipo): int
-    {
-        return match ($tipo) {
-            'RAPIDO' => 1,
-            'PROMEDIO' => 2,
-            'EXTENDIDO' => 3,
-            default => 0,
-        };
-    }
-
 }

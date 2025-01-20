@@ -13,7 +13,7 @@ class ReservationOverlapRule implements ValidationRule
     {
         $dateReservationRequest = request('fecha');
         $tableIdReservationRequest = request('mesa_id');
-        $durationReservationRequest = $this->calculateDuration(request('duracion'));
+        $durationReservationRequest = (new Reserva())->calculateDuration(request('duracion'));
 
         $allReservationsByDateAndTable = Reserva::where('fecha', $dateReservationRequest)
             ->where('mesa_id', $tableIdReservationRequest)
@@ -25,22 +25,12 @@ class ReservationOverlapRule implements ValidationRule
 
         foreach ($allReservationsByDateAndTable as $reservation) {
             $startHourReservationDB = Carbon::createFromFormat('H:i:s', $reservation->hora);
-            $endHourReservationDB = $startHourReservationDB->copy()->addHours($this->calculateDuration($reservation->duracion));
+            $endHourReservationDB = $startHourReservationDB->copy()->addHours($reservation->calculateDuration($reservation->duracion));
 
             if ($startHourReservationRequest->lt($endHourReservationDB) && $endHourReservationRequest->gt($startHourReservationDB)) {
                 $fail("La reserva se traslapa con una existente para esta mesa.");
                 return;
             }
         }
-    }
-
-    private function calculateDuration(string $tipo): int
-    {
-        return match ($tipo) {
-            'RAPIDO' => 1,
-            'PROMEDIO' => 2,
-            'EXTENDIDO' => 3,
-            default => 0,
-        };
     }
 }

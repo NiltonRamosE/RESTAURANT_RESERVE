@@ -21,7 +21,7 @@ class ChangeReservationFinished extends Command
         $reservationInProgress = Reserva::where('estado', 'EN CURSO')->get();
 
         foreach ($reservationInProgress as $reserva) {
-            $hourFinishedReservation = Carbon::parse($reserva->hora)->addHours($this->calculateDuration($reserva->duracion));
+            $hourFinishedReservation = Carbon::parse($reserva->hora)->addHours($reserva->calculateDuration($reserva->duracion));
 
             if ($now->greaterThanOrEqualTo($hourFinishedReservation)) {
                 $reserva->estado = 'EFECTUADO';
@@ -37,15 +37,5 @@ class ChangeReservationFinished extends Command
         }
 
         $this->info("Proceso completado.");
-    }
-
-    private function calculateDuration(string $tipo): int
-    {
-        return match ($tipo) {
-            'RAPIDO' => 1,
-            'PROMEDIO' => 2,
-            'EXTENDIDO' => 3,
-            default => 0,
-        };
     }
 }
