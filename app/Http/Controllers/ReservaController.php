@@ -13,7 +13,7 @@ class ReservaController extends Controller
 
     public function index()
     {
-        $mesas = Mesa::all();
+        $mesas = Mesa::where('estado', '!=', 'MANTENIMIENTO')->get();
 
         return view('pages.reservas', compact('mesas'));
     }
