@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Mesa;
 use App\Models\Reserva;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -26,10 +27,10 @@ class ChangeReservationFinished extends Command
                 $reserva->estado = 'EFECTUADO';
                 $reserva->save();
 
-                $mesa = $reserva->mesa;
+                $mesa = Mesa::where('id', $reserva->mesa_id)->lockForUpdate()->first();
                 $mesa->estado = 'LIBRE';
                 $mesa->save();
-                
+
                 $this->info("Mesa ID {$mesa->id} actualizada a LIBRE.");
                 $this->info("Reserva ID {$reserva->id} actualizada a EFECTUADO.");
             }
