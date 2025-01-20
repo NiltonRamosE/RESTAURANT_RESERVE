@@ -26,6 +26,11 @@ class ChangeReservationFinished extends Command
                 $reserva->estado = 'EFECTUADO';
                 $reserva->save();
 
+                $mesa = $reserva->mesa;
+                $mesa->estado = 'LIBRE';
+                $mesa->save();
+                
+                $this->info("Mesa ID {$mesa->id} actualizada a LIBRE.");
                 $this->info("Reserva ID {$reserva->id} actualizada a EFECTUADO.");
             }
         }

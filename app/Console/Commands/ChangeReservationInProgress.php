@@ -30,6 +30,12 @@ class ChangeReservationInProgress extends Command
         foreach ($reservationsStartedNow as $reserva) {
             $reserva->estado = 'EN CURSO';
             $reserva->save();
+
+            $mesa = $reserva->mesa;
+            $mesa->estado = 'OCUPADO';
+            $mesa->save();
+            
+            $this->info("Mesa ID {$mesa->id} actualizada a OCUPADO.");
             $this->info("Reserva ID {$reserva->id} actualizada a EN CURSO.");
         }
 
