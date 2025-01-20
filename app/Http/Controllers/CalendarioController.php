@@ -13,25 +13,11 @@ class CalendarioController extends Controller
         $fecha = $fecha ?? now()->toDateString();
 
         $reservations = Reserva::where('fecha', 'like', $fecha . '%')
-            ->whereIn('estado', ['APROBADO', 'REPROGRAMADO'])
             ->with('cliente', 'mesa') 
             ->get();
 
         return view('pages.calendario', compact('reservations', 'fecha'));
     }
-
-    public function getReservationsByDate($fecha = null)
-    {
-        $fecha = $fecha ?? now()->toDateString();
-
-        $reservations = Reserva::where('fecha', 'like', $fecha . '%')
-            ->whereIn('estado', ['APROBADO', 'REPROGRAMADO'])
-            ->with('cliente', 'mesa') 
-            ->get();
-
-        return view('pages.calendario', compact('reservations', 'fecha'));
-    }
-
 
     /**
      * Show the form for creating a new resource.
