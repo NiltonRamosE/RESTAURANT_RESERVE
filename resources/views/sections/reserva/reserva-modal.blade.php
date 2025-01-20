@@ -9,6 +9,7 @@
                     name="mesa_id" 
                     id="mesa" 
                     class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sevensoup-dark bg-white focus:outline-none focus:ring-2 focus:ring-sevensoup-green focus:border-sevensoup-green">
+                    <option value="">Selecciona una mesa</option>
                     @foreach ($mesas as $m)
                         <option value="{{ $m->id }}">Mesa {{ $m->numero }}</option>
                     @endforeach
