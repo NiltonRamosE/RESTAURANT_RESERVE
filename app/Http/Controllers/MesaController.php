@@ -52,7 +52,7 @@ class MesaController extends Controller
         $reservationsDateNow = Reserva::with('cliente:id,nombre')
             ->where('mesa_id', $id)
             ->where('fecha', $dateNow)
-            ->whereIn('estado', ['APROBADO', 'REPROGRAMADO'])
+            ->whereNotIn('estado', ['EFECTUADO', 'CANCELADO'])
             ->get(['hora', 'duracion', 'estado', 'cliente_id']);
 
         foreach ($reservationsDateNow as $reservation) {
