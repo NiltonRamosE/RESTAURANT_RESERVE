@@ -2,60 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\empleado\StoreEmpleadoRequest;
+use App\Http\Requests\empleado\UpdateEmpleadoRequest;
+use App\Models\Empleado;
+use App\Models\Usuario;
 
 class EmpleadoController extends Controller
 {
     public function index()
     {
-        return view('pages.employee.dashboard-employee');
+        $empleados = Empleado::with('usuario')->paginate(10);
+
+        return view('pages.employee.dashboard-employee', compact('empleados'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('sections.employee.addEmployee');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreEmpleadoRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $nombres = explode(' ', $validated['nombre']);
+        $inicialesNombres = array_reduce($nombres, function ($carry, $nombre) {
+            return $carry . substr($nombre, 0, 1);
+        }, '');
+
+        $correo = strtolower($inicialesNombres . $validated['apellido_paterno'] . substr($validated['apellido_materno'], 0, 1) . '@sietesopas.org');
+    
+        $userCreated =  Usuario::create([
+            'correo' => $correo,
+            'password' => $validated['password']
+        ]);
+
+        Empleado::create([
+            'nombre' => strtoupper($validated['nombre']),
+            'apellido_paterno' => strtoupper($validated['apellido_paterno']),
+            'apellido_materno' => strtoupper($validated['apellido_materno']),
+            'celular' => $validated['celular'],
+            'usuario_id' => $userCreated->id,
+        ]);
+
+        return to_route('empleados.index')->with('status', 'Empleado añadido correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Empleado $empleado)
     {
-        //
+        return view('sections.employee.showEmployee', compact('empleado'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Empleado $empleado)
     {
-        //
+        return view('sections.employee.updateEmployee', compact('empleado'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateEmpleadoRequest $request, Empleado $empleado)
     {
-        //
+        $validated = $request->validated();
+
+        $empleado->update([
+            'nombre' => strtoupper($validated['nombre']),
+            'apellido_paterno' => strtoupper($validated['apellido_paterno']),
+            'apellido_materno' => strtoupper($validated['apellido_materno']),
+            'celular' => $validated['celular'],
+        ]);
+
+        return to_route('empleados.index')->with('status', 'Empleado actualizado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Empleado $empleado)
     {
-        //
+        $empleado->delete();
+
+        return to_route('empleados.index')->with('status', 'Empleado eliminado correctamente');
     }
 }
