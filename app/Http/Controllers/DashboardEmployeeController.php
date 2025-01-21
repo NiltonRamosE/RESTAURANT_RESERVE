@@ -8,7 +8,7 @@ class DashboardEmployeeController extends Controller
 {
     public function index()
     {
-        return view('layouts.default-employee');
+        return view('pages.employee.dashboard-management');
     }
 
     /**

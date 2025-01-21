@@ -8,6 +8,11 @@
         <script src="//unpkg.com/alpinejs" defer></script>
     </head>
     <body>
+        @php
+            $employee = session('userIsAuthenticated')['user'];
+
+            $full_name = $employee->nombre . ' ' . $employee->apellido_paterno . ' ' . $employee->apellido_materno
+        @endphp
         <div x-data="{ isOpen: true }" class="flex h-screen">
             @include('partials.sidebar')
 
@@ -16,7 +21,7 @@
                 class="flex-1 flex flex-col transition-all duration-300"
             >
                 <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-                    <h2 class="text-2xl font-semibold">@yield('header-title', 'Bienvenido')</h2>
+                    <h2 class="text-2xl font-semibold">@yield('header-title', 'Bienvenido') {{ $full_name }}</h2>
                     <button 
                         @click="isOpen = true" 
                         class="text-blue-800 hover:text-blue-600 "
@@ -27,7 +32,7 @@
                 </header>
 
                 <main class="flex-1 p-6 overflow-y-auto">
-                    @yield('content-employee')
+                    @yield('content-management')
                 </main>
 
                 @include('partials.footer')
