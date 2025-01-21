@@ -35,8 +35,14 @@
     </nav>
 
     <div class="p-4 border-t border-green-700">
-        <a href="#" class="block py-2 px-4 text-center rounded-lg bg-red-600 hover:bg-red-500">
-            Cerrar sesión
-        </a>
+        <form action="{{route('auth.logout')}}" method="POST">
+            @csrf
+            <button 
+                class="block w-full py-3 px-6 text-center rounded-md bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-semibold shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 transition duration-300 transform hover:scale-105"
+                type="submit"
+            >
+                Cerrar Sesión
+            </button>
+        </form>
     </div>
 </aside>
