@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\DashboardEmployeeController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservaController;
@@ -33,6 +34,10 @@ Route::prefix('mesas')->controller(MesaController::class)->group(function () {
 
 Route::prefix('calendario')->controller(CalendarioController::class)->group(function () {
     Route::get('/reservations/{fecha?}', 'index')->name('calendario.index');
+});
+
+Route::prefix('dashboard')->controller(DashboardEmployeeController::class)->group(function () {
+    Route::get('/', 'index')->name('dashboard.index');
 });
 
 Route::middleware([CheckAuth::class])->resource('register', RegisterController::class)->only([
