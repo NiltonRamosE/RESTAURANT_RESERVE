@@ -28,7 +28,7 @@ class ReservaController extends Controller
 
     public function indexDashboard()
     {
-        //
+        return view('pages.employee.dashboard-reservas');
     }
 
     public function create()

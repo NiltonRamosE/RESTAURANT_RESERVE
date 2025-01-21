@@ -12,7 +12,7 @@ class MesaController extends Controller
 
     public function index()
     {
-        //
+        return view('pages.employee.dashboard-mesas');
     }
 
     public function create()

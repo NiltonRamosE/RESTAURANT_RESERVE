@@ -21,7 +21,7 @@
                 class="flex-1 flex flex-col transition-all duration-300"
             >
                 <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-                    <h2 class="text-2xl font-semibold">@yield('header-title', 'Bienvenido') {{ $full_name }}</h2>
+                    <h2 class="text-2xl font-semibold">@yield('header-title', 'Bienvenido' . ' ' .$full_name ) </h2>
                     <button 
                         @click="isOpen = true" 
                         class="text-blue-800 hover:text-blue-600 "
