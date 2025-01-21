@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\DashboardEmployeeController;
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservaController;
@@ -24,7 +25,7 @@ Route::middleware([CheckClient::class])->group(function () {
         return view('pages/nosotros');
     })->name('pages.nosotros');
 
-    Route::resource('reserva', ReservaController::class);
+    Route::resource('reserva', ReservaController::class)->only(['index','store']);
 
     Route::prefix('mesas')->controller(MesaController::class)->group(function () {
         Route::get('/{id}', 'getPrecio');
@@ -40,6 +41,16 @@ Route::middleware([CheckEmployee::class])->group(function () {
     Route::prefix('dashboard')->controller(DashboardEmployeeController::class)->group(function () {
         Route::get('/', 'index')->name('dashboard.index');
     });
+
+    Route::prefix('reserva')->controller(ReservaController::class)->group(function () {
+        Route::get('/dashboard', 'indexDashboard')->name('reserva.dashboard');
+    });
+
+    Route::resource('empleados', EmpleadoController::class);
+
+    Route::resource('mesas', MesaController::class);
+
+    Route::resource('reserva', ReservaController::class)->except(['index', 'store']);
 });
 
 

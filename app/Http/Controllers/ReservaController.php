@@ -26,6 +26,11 @@ class ReservaController extends Controller
         return view('pages.reservas', compact('mesas'));
     }
 
+    public function indexDashboard()
+    {
+        //
+    }
+
     public function create()
     {
         //
