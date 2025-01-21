@@ -22,7 +22,7 @@ class CheckAuth
             if ($userIsClient) {
                 return to_route('reserva.index');
             }elseif ($userIsEmployee) {
-                return to_route('pages.index'); //provisional hasta tener el dashboard
+                return to_route('dashboard.index');
             }
         }
 
