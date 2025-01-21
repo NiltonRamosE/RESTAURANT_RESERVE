@@ -7,19 +7,19 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold">Total de Empleados</h3>
-                <p class="text-3xl font-bold mt-2">42</p>
-                <p class="text-sm mt-1">Última actualización: Hoy</p>
+                <p class="text-3xl font-bold mt-2">{{ $dataCards['numberOfEmployees'] }}</p>
+                <p class="text-sm mt-1">Última actualización: {{ $dataCards['lastestUpdateDate'] }}</p>
             </div>
     
             <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold">Reservas Activas</h3>
-                <p class="text-3xl font-bold mt-2">15</p>
-                <p class="text-sm mt-1">Reservas gestionadas esta semana</p>
+                <p class="text-3xl font-bold mt-2">{{ $dataCards['reservationsActives'] }} </p>
+                <p class="text-sm mt-1">Reservas gestionadas</p>
             </div>
     
             <div class="bg-yellow-500 text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold">Clientes Registrados</h3>
-                <p class="text-3xl font-bold mt-2">120</p>
+                <p class="text-3xl font-bold mt-2">{{ $dataCards['numberOfClients'] }}</p>
                 <p class="text-sm mt-1">Clientes totales en el sistema</p>
             </div>
         </div>
