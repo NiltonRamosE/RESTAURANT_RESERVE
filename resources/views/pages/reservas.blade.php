@@ -1,7 +1,9 @@
 @extends('layouts.default')
 
 @section('title', 'Reservas')
-
+@section('estilos')
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=table_bar" />
+@endsection
 @section('content')
     <div class="min-h-screen py-12">
         <div class="max-w-7xl mx-auto px-6">
