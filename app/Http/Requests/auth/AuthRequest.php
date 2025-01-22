@@ -15,8 +15,12 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'correo' => 'required',
-            'password' => 'required',
+            'correo' => [
+                'required',
+                'email',
+                'regex:/^[a-zA-Z0-9._%+-]+@(sietesopas\.org|gmail\.com)$/',
+            ],
+            'password' => 'required|string|min:8',
         ];
     }
 }

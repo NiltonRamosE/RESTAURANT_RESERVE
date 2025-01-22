@@ -15,9 +15,21 @@ class UpdateEmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => 'required|string|max:50',
-            'apellido_paterno' => 'required|string|max:50',
-            'apellido_materno' => 'required|string|max:50',
+            'nombre' => [
+                'required',
+                'max:50',
+                'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
+            ],
+            'apellido_paterno' => [
+                'required',
+                'max:50',
+                'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
+            ],
+            'apellido_materno' => [
+                'required',
+                'max:50',
+                'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/',
+            ],
             'celular' => 'required|string|digits:9|unique:empleados,celular,'.$this->route('empleado')->id,
         ];
     }

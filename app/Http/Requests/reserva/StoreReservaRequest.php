@@ -18,7 +18,7 @@ class StoreReservaRequest extends FormRequest
             'fecha' => 'required',
             'hora' => ['required', new ReservationOverlapRule()],
             'mesa_id' => 'required|exists:mesas,id',
-            'duracion' => 'required',
+            'duracion' => 'required|in:RAPIDO,PROMEDIO,EXTENDIDO',
         ];
     }
 }
