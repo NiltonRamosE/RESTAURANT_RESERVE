@@ -12,7 +12,7 @@ class EmpleadoSeeder extends Seeder
     public function run(): void
     {
         $empleados = [
-            ['Nilton', 'Ramos', 'Encarnacion', '123456789', 1]
+            ['NILTON', 'RAMOS', 'ENCARNACION', '123456789', 1]
         ];
 
         foreach ($empleados as $empleadoData) {

@@ -11,7 +11,7 @@ class UsuarioSeeder extends Seeder
 
     public function run(): void
     {
-        $users = [['niltonre@sietesopas.org', '123']];
+        $users = [['nramose@sietesopas.org', '12345678']];
 
         foreach ($users as $userData) {
             $user = new Usuario();

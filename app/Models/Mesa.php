@@ -11,5 +11,6 @@ class Mesa extends Model
         'cantidad_asientos',
         'precio',
         'estado',
+        'piso',
     ];
 }
