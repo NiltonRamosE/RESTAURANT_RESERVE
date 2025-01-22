@@ -13,7 +13,7 @@ class CheckClient
     {
         $userIsAuthenticated = Auth::guard('usuarios')->user();
 
-        if (!$userIsAuthenticated && $request->is('dashboard-client/*')) {
+        if (!$userIsAuthenticated && $request->is('cliente/*')) {
             return to_route('reserva.index');
         }
         
