@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('correo', length: 100)->unique();
             $table->string('password')->nullable();
+            $table->string('google_id')->nullable();
             $table->timestamps();
         });
     }
