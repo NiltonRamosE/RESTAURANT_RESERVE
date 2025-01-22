@@ -36,6 +36,21 @@ class DashboardEmployeeController extends Controller
 
         $numberOfClients = Cliente::count();
 
+        $reservasPorMes = Reserva::selectRaw('MONTH(fecha) as mes, COUNT(*) as total')
+            ->whereYear('fecha', Carbon::now()->year)
+            ->groupBy('mes')
+            ->pluck('total', 'mes')
+            ->toArray();
+
+        $ocupacionMesas = Reserva::selectRaw('estado, COUNT(*) as total')
+            ->groupBy('estado')
+            ->pluck('total', 'estado')
+            ->toArray();
+
+        $meses = collect(range(1, 12))->map(function ($mes) {
+            return Carbon::create()->month($mes)->locale('es')->translatedFormat('F');
+        })->toArray();
+
         $dataCards = [
             'lastestUpdateDate' => $lastestUpdateDate,
             'numberOfEmployees' => $numberOfEmployees,
@@ -43,6 +58,12 @@ class DashboardEmployeeController extends Controller
             'numberOfClients' => $numberOfClients,
         ];
 
-        return view('pages.employee.dashboard-management', compact('dataCards'));
+        $chartData = [
+            'reservasPorMes' => $reservasPorMes,
+            'ocupacionMesas' => $ocupacionMesas,
+            'meses' => $meses,
+        ];
+    
+        return view('pages.employee.dashboard-management', compact('dataCards', 'chartData'));
     }
 }

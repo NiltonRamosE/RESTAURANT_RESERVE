@@ -27,17 +27,57 @@
         <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold text-gray-700">Reservas por Mes</h3>
-                <div id="chart-reservas" class="mt-4 h-64">
-                    <!-- Aquí se renderizará el gráfico -->
-                </div>
+                <canvas id="chartReservas" class="mt-4 h-64"></canvas>
             </div>
-    
+        
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-lg font-semibold text-gray-700">Ocupación de Mesas</h3>
-                <div id="chart-ocupacion" class="mt-4 h-64">
-                    <!-- Aquí se renderizará el gráfico -->
-                </div>
+                <canvas id="chartOcupacion" class="mt-4 h-64"></canvas>
             </div>
-        </div>
+        </div>        
     </section>
+
+    <script>
+        const reservasPorMesData = @json(array_values($chartData['reservasPorMes']));
+        const reservasPorMesLabels = @json($chartData['meses']);
+    
+        new Chart(document.getElementById('chartReservas'), {
+            type: 'bar',
+            data: {
+                labels: reservasPorMesLabels,
+                datasets: [{
+                    label: 'Reservas',
+                    data: reservasPorMesData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+        const ocupacionMesasData = @json(array_values($chartData['ocupacionMesas']));
+        const ocupacionMesasLabels = @json(array_keys($chartData['ocupacionMesas']));
+    
+        new Chart(document.getElementById('chartOcupacion'), {
+            type: 'pie',
+            data: {
+                labels: ocupacionMesasLabels,
+                datasets: [{
+                    data: ocupacionMesasData,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ]
+                }]
+            }
+        });
+    </script>    
 @endsection
