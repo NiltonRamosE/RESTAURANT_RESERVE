@@ -50,7 +50,7 @@ Route::middleware([CheckEmployee::class])->group(function () {
 
     Route::resource('mesas-management', MesaController::class);
 
-    Route::resource('reserva', ReservaController::class)->except(['index', 'store']);
+    Route::resource('reserva', ReservaController::class)->except(['index', 'store', 'create', 'destroy']);
 });
 
 

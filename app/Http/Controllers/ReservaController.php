@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\reserva\StoreReservaRequest;
+use App\Http\Requests\reserva\UpdateReservaRequest;
 use App\Mail\ReserveMailConfirmation;
 use App\Models\Mesa;
 use App\Models\Reserva;
@@ -28,12 +29,8 @@ class ReservaController extends Controller
 
     public function indexDashboard()
     {
-        return view('pages.employee.dashboard-reservas');
-    }
-
-    public function create()
-    {
-        //
+        $reservas = Reserva::with(['cliente:id,nombre,apellido_paterno,apellido_materno', 'mesa:id,numero'])->paginate(10);
+        return view('pages.employee.dashboard-reservas', compact('reservas'));
     }
 
     public function store(StoreReservaRequest $request)
@@ -75,24 +72,41 @@ class ReservaController extends Controller
         return to_route('reserva.index')->withErrors('error', 'La reserva no se ha podido crear correctamente');
     }
 
-    public function show(string $id)
+    public function show(Reserva $reserva)
     {
-        //
+        $mesa = Mesa::find($reserva->mesa_id);
+        return view('sections.reserva.showReserva', compact('reserva', 'mesa'));
     }
 
-    public function edit(string $id)
+    public function edit(Reserva $reserva)
     {
-        //
+        $mesas = Mesa::all();
+        return view('sections.reserva.updateReserva', compact('reserva', 'mesas'));
     }
 
-    public function update(StoreReservaRequest $request, string $id)
+    public function update(UpdateReservaRequest $request, Reserva $reserva)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    public function destroy(string $id)
-    {
-        //
+        $reserva->update($validated);
+
+        $cliente = $reserva->cliente;
+        $mesa = $reserva->mesa;
+
+        $cliente_fullname = $cliente->nombre . ' ' . $cliente->apellido_paterno . ' ' . $cliente->apellido_materno;
+
+        $message_sms =
+            "
+                Estimado {$cliente_fullname}, su reserva ha sido actualizada:
+                - Mesa Nº {$mesa->numero}
+                - Fecha: {$validated['fecha']}
+                - Hora: {$validated['hora']}
+                - Duración: {$reserva->calculateDuration($validated['duracion'])} horas
+            ";
+
+        $this->twilio->sendSMS('+51' . $cliente->celular, $message_sms);
+
+        return to_route('reserva.dashboard')->with('status', 'Reserva actualizada correctamente');
     }
 
     private function sendReserveMailConfirmation($email_destinario, $informationOfClient, $reservaCreated, $mesaFound)
