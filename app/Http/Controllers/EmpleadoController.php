@@ -74,8 +74,11 @@ class EmpleadoController extends Controller
 
     public function destroy(Empleado $empleado)
     {
+        $user = $empleado->usuario();
+        
         $empleado->delete();
-
+        $user->delete();
+        
         return to_route('empleados.index')->with('status', 'Empleado eliminado correctamente');
     }
 }
