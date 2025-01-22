@@ -29,4 +29,65 @@
     <ul class="hidden sm:flex lg:items-center sm:space-x-10">
         @include('fragments._itemnavbar')
     </ul>
+
+    <div class="ml-auto sm:ml-0">
+        @auth('usuarios')
+            @php
+                $client = session('userIsAuthenticated')['user'];
+                $correo = session('userIsAuthenticated')['correo'];
+                $full_name = $client->nombre . ' ' . $client->apellido_paterno . ' ' . $client->apellido_materno;
+            @endphp
+            <div x-data="{ open: false }" class="relative">
+                <button 
+                    @click="open = !open"
+                    class="flex items-center space-x-2 text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold focus:outline-none"
+                    type="button"
+                >
+                    <span>{{ $full_name }}</span>
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <ul 
+                    x-show="open" 
+                    @click.away="open = false"
+                    x-transition
+                    class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg text-sm text-sevensoup-dark"
+                    style="display: none;"
+                >
+                    <li class="px-4 py-2 text-gray-500 font-light">
+                        {{ $correo }}
+                    </li>
+                    <li>
+                        <a 
+                            href="" 
+                            class="block px-4 py-2 hover:bg-sevensoup-light hover:text-sevensoup-red transition-colors"
+                        >
+                            Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <form action="{{route('auth.logout')}}" method="POST">
+                            @csrf
+                            <button 
+                                class="w-full text-left px-4 py-2 hover:bg-sevensoup-light hover:text-sevensoup-red transition-colors"
+                                type="submit"
+                            >
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @endauth
+
+        @guest('usuarios')
+            <a 
+                href="{{route('auth.index')}}" 
+                class="block text-sevensoup-dark hover:text-sevensoup-red transition-colors font-bold">
+                Iniciar Sesión
+            </a>
+        @endguest
+    </div>
 </nav>
