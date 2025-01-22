@@ -25,12 +25,12 @@
             </div>            
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a href="" class="block p-4 bg-sevensoup-light hover:bg-sevensoup-red hover:text-white transition-colors rounded-lg shadow text-center">
+                <a href="{{ route('cliente.reservationsActives', $cliente->id) }}" class="block p-4 bg-sevensoup-light hover:bg-sevensoup-red hover:text-white transition-colors rounded-lg shadow text-center">
                     <h2 class="text-lg font-semibold">Reservas Actuales</h2>
                     <p class="text-sm text-gray-500">Consulta tus reservas activas.</p>
                 </a>
 
-                <a href="" class="block p-4 bg-sevensoup-light hover:bg-sevensoup-red hover:text-white transition-colors rounded-lg shadow text-center">
+                <a href="{{ route('cliente.reservationsHistory', $cliente->id) }}" class="block p-4 bg-sevensoup-light hover:bg-sevensoup-red hover:text-white transition-colors rounded-lg shadow text-center">
                     <h2 class="text-lg font-semibold">Historial de Reservas</h2>
                     <p class="text-sm text-gray-500">Revisa las reservas que realizaste anteriormente.</p>
                 </a>

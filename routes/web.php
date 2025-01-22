@@ -37,6 +37,12 @@ Route::middleware([CheckClient::class])->group(function () {
         Route::get('/reservations/{fecha?}', 'index')->name('calendario.index');
     });
 
+    Route::prefix('cliente')->controller(ClienteController::class)->group(function () {
+        Route::get('/reservationsActives/{cliente}', 'reservationsActivesOfClient')->name('cliente.reservationsActives');
+        Route::get('/reservationsHistory/{cliente}', 'reservationsHistoryOfClient')->name('cliente.reservationsHistory');
+
+    });
+
     Route::resource('cliente', ClienteController::class)->except(['index', 'store', 'create', 'destroy']);
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\register\UpdateRegisterRequest;
 use App\Models\Cliente;
+use App\Models\Reserva;
 
 class ClienteController extends Controller
 {
@@ -29,5 +30,21 @@ class ClienteController extends Controller
         ]);
 
         return to_route('cliente.show', $cliente)->with('status', 'Empleado actualizado correctamente');
+    }
+
+    public function reservationsActivesOfClient(Cliente $cliente)
+    {
+        $reservationsActive = Reserva::where('cliente_id', $cliente->id)
+                                        ->whereIn('estado', ['APROBADO', 'REPROGRAMADO'])
+                                        ->paginate(10);
+        return view('sections.client.reservationsActive', compact('reservationsActive'));
+    }
+
+    public function reservationsHistoryOfClient(Cliente $cliente)
+    {
+        $reservationsHistory = Reserva::where('cliente_id', $cliente->id) 
+                                        ->whereNotIn('estado', ['APROBADO', 'REPROGRAMADO'])
+                                        ->paginate(10);
+        return view('sections.client.reservationHistory', compact('reservationsHistory'));
     }
 }
