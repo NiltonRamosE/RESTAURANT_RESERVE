@@ -11,10 +11,10 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', length: 50);
+            $table->string('nombre', length: 50)->nullable();
             $table->string('apellido_paterno', length: 50);
             $table->string('apellido_materno', length: 50);
-            $table->string('celular', length: 9)->unique();
+            $table->string('celular', length: 9)->unique()->nullable();
             $table->timestamps();
             $table->foreignId('usuario_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
         });

@@ -68,6 +68,13 @@ Route::middleware([CheckAuth::class])->prefix('auth')->controller(AuthController
     Route::post('/login', 'login')->name('auth.login');
     Route::post('/logout', 'logout')->name('auth.logout')->withoutMiddleware([CheckAuth::class]);
 });
+
+Route::middleware([CheckAuth::class])->group(function () {
+    Route::get('/google-auth/redirect', [AuthController::class, 'loginRedirectGoogle'])->name('auth.registerGoogle');
+     
+    Route::get('/google-auth/callback', [AuthController::class, 'loginWithGoogle']);
+});
+
 Route::middleware([CheckAuth::class])->resource('register', RegisterController::class)->only([
     'create', 'store'
 ]);

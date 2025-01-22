@@ -13,10 +13,12 @@ class Usuario extends Model implements Authenticatable
     protected $fillable = [
         'correo',
         'password',
+        'google_id',
     ];
 
     protected $hidden = [
         'password',
+        'google_id',
     ];
 
     public function setPasswordAttribute($value){
