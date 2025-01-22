@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardEmployeeController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MesaController;
@@ -35,6 +36,8 @@ Route::middleware([CheckClient::class])->group(function () {
     Route::prefix('calendario')->controller(CalendarioController::class)->group(function () {
         Route::get('/reservations/{fecha?}', 'index')->name('calendario.index');
     });
+
+    Route::resource('cliente', ClienteController::class)->except(['index', 'store', 'create', 'destroy']);
 });
 
 Route::middleware([CheckEmployee::class])->group(function () {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\register\StoreRequest;
+use App\Http\Requests\register\StoreRegisterRequest;
 use App\Models\Usuario;
 use App\Models\Cliente;
 
@@ -13,7 +13,7 @@ class RegisterController extends Controller
         return view('pages.register');
     }
 
-    public function store(StoreRequest $request)
+    public function store(StoreRegisterRequest $request)
     {
         $validated = $request->validated();
 

@@ -61,7 +61,7 @@
                     </li>
                     <li>
                         <a 
-                            href="" 
+                            href="{{ route('cliente.show', $client->id) }}" 
                             class="block px-4 py-2 hover:bg-sevensoup-light hover:text-sevensoup-red transition-colors"
                         >
                             Perfil
